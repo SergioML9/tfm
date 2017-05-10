@@ -1,5 +1,5 @@
-from StressModel import *
-from StressAgent import *
+from model.stressModel import *
+from agents.stressAgent import *
 import matplotlib.pyplot as plt
 
 
