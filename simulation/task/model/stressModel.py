@@ -5,12 +5,17 @@ from mesa.space import MultiGrid
 import random
 from mesa.datacollection import DataCollector
 from agents.timeAgent import Time
+from log.log import CustomLog
 
 class StressModel(Model):
     """A model with some number of agents."""
     def __init__(self, N):
         self.num_agents = N
         self.schedule = RandomActivation(self)
+
+        # Create log
+        self.log = CustomLog()
+        self.log.initCollectStress()
 
         # Create control of time
         self.clock = Time()
@@ -21,10 +26,9 @@ class StressModel(Model):
             a = StressAgent(i, self)
             self.schedule.add(a)
 
-        self.datacollector = DataCollector(
-            agent_reporters={"Stress": lambda a: a.stress})
+        #self.datacollector = DataCollector(
+        #    agent_reporters={"Stress": lambda a: a.stress})
 
     def step(self):
         '''Advance the model by one step.'''
-        self.datacollector.collect(self)
         self.schedule.step()

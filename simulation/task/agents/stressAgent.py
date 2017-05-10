@@ -11,9 +11,5 @@ class StressAgent(Agent):
         self.stress = 0
 
     def step(self):
-        
-        beta = 0.1
-        alpha = 0.05
-        t = randint(0,500)
-        self.stress = math.floor(math.pow(alpha * t, 2))
-        
+        self.stress += randint(0,10)
+        self.model.log.collectStress(self.model.clock.clock, self.unique_id, self.stress)
