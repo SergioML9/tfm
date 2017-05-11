@@ -12,6 +12,7 @@ class StressModel(Model):
     def __init__(self, N):
         self.num_agents = N
         self.schedule = RandomActivation(self)
+        self.users = []
 
         # Create log
         self.log = CustomLog()
@@ -25,6 +26,7 @@ class StressModel(Model):
         for i in range(self.num_agents):
             a = StressAgent(i, self)
             self.schedule.add(a)
+            self.users.append(a)
 
         #self.datacollector = DataCollector(
         #    agent_reporters={"Stress": lambda a: a.stress})

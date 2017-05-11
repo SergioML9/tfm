@@ -1,11 +1,19 @@
 from model.stressModel import *
 from agents.stressAgent import *
 import matplotlib.pyplot as plt
+from mesa.visualization.ModularVisualization import ModularServer
+from HistogramModule import HistogramModule
 
+histogram = HistogramModule(list(range(100)), 200, 1000)
+server = ModularServer(StressModel,
+                       [histogram],
+                       "Stress Model",
+                       5)
+server.launch()
 
-model = StressModel(10)
-for i in range(48):
-    model.step()
+#model = StressModel(10)
+#for i in range(48):
+#    model.step()
 
 #agent_stress = [a.stres for a in model.schedule.agents]
 #plt.hist(agent_wealth)
