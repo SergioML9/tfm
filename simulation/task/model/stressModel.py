@@ -1,4 +1,4 @@
-from agents.stressAgent import StressAgent
+from agents.workerAgent import WorkerAgent
 from mesa import Model
 from mesa.time import RandomActivation
 from mesa.space import MultiGrid
@@ -19,12 +19,12 @@ class StressModel(Model):
         self.log.initCollectStress()
 
         # Create control of time
-        self.clock = Time()
-        self.schedule.add(self.clock)
+        self.time = Time()
+        self.schedule.add(self.time)
 
         # Create agents
         for i in range(self.num_agents):
-            a = StressAgent(i, self)
+            a = WorkerAgent(i, self)
             self.schedule.add(a)
             self.users.append(a)
 

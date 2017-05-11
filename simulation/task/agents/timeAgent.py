@@ -1,17 +1,19 @@
 from mesa import Agent, Model
 import configuration.settings
 import math
+import datetime
 
 class Time(Agent):
 
     def __init__(self):
 
+        #print(configuration.settings.workersTiming['arriveTime'])
         self.timeByStep = configuration.settings.time_by_step
+        self.clock = datetime.time(8, 00)
         self.days = 0
-        self.hours = 0
-        self.minutes = 0
-        self.seconds = -self.timeByStep
-        self.clock = "00:00"
+        self.hours = self.clock.hour
+        self.minutes = self.clock.minute
+        self.seconds = self.clock.second-self.timeByStep
 
     def step(self):
         self.seconds = self.seconds + self.timeByStep
@@ -29,5 +31,5 @@ class Time(Agent):
                 #    self.hours = self.hours + self.hours % 24
 
         #self.clock = (self.hour*100 + self.minute) / 100
-        self.clock = "%02d:%02d" % (self.hours,self.minutes)
+        self.clock = datetime.time(self.hours,self.minutes)
         print('Day: ', (self.days + 1), ' - Hour: ', self.clock)

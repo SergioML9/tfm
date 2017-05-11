@@ -1,5 +1,4 @@
 from model.stressModel import *
-from agents.stressAgent import *
 import matplotlib.pyplot as plt
 from mesa.visualization.ModularVisualization import ModularServer
 from HistogramModule import HistogramModule
