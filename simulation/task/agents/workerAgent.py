@@ -12,7 +12,8 @@ class WorkerAgent(Agent):
     def __init__(self, worker_id, model):
         super().__init__(worker_id, model)
         self.base_stress = random.uniform(0, 1)
-        self.stress_tolerance = random.uniform(0, 1)
+        self.stress_tolerance = random.uniform(0, 0.5)
+        self.responsibility = random.uniform(0, 0.8)
         self.day = -1
         self.tasks = []
         self.productivity = random.choice(configuration.settings.productivity_probs)
@@ -23,11 +24,12 @@ class WorkerAgent(Agent):
 
         # check if is work titme
         is_work_time = configuration.settings.workersTiming['arrivalTime'] <= self.model.time.clock <= configuration.settings.workersTiming['leavingTime']
-        
+
         # check if the day has changed, if true, add new daily tasks
         if self.day != self.model.time.days and self.model.time.clock.hour == 9:
-            for i in range(random.randint(6, 10)):
-                self.tasks.extend([Task()])
+            for i in range(random.randint(7, 10)):
+                if len(self.tasks) < 15:
+                    self.tasks.extend([Task()])
             self.day = self.model.time.days
             return
 
@@ -42,10 +44,18 @@ class WorkerAgent(Agent):
             remaining_work_time = datetime.combine(date.min, configuration.settings.workersTiming['leavingTime']) - datetime.combine(date.min, self.model.time.clock)
             remaining_work_time_minutes = remaining_work_time.seconds / 60
 
+            #print("Remaining work time for agent " + str(self.unique_id) + ": " + str(remaining_work_time_minutes))
+
             # calculate stress
             if remaining_work_time_minutes != 0:
-                self.stress = self.base_stress + (1 - self.stress_tolerance)*math.pow(math.e, remaining_tasks_time/remaining_work_time_minutes)
-        
+                self.stress = min(10, math.ceil(self.base_stress + (1 - self.stress_tolerance)*math.pow(1.5, math.sqrt((len(self.tasks)+remaining_tasks_time/remaining_work_time_minutes)*configuration.settings.max_stress/configuration.settings.real_max_stress))))
+                #print("Stress for agent " + str(self.unique_id) + ": " + str(self.stress))
+        else:
+            if len(self.tasks) > 0:
+                self.base_stress = len(self.tasks)*self.responsibility
+            else:
+                self.base_stress = 0
+
         # check if there are remaining tasks, and select current task
         if len(self.tasks) > 0:
             self.currentTask = self.tasks[0]
@@ -64,9 +74,8 @@ class WorkerAgent(Agent):
             if self.currentTask.time == 0:
                 self.tasks.pop(0)
 
-        print("Remaining task time for agent " + str(self.unique_id) + ": " + str(remaining_tasks_time))
-        print("Remaining work time for agent " + str(self.unique_id) + ": " + str(remaining_work_time_minutes))
-        print("Remaining tasks for agent " + str(self.unique_id) + ": " + str(len(self.tasks)))
-        print("Stress for agent " + str(self.unique_id) + ": " + str(self.stress))
+        #print("Remaining task time for agent " + str(self.unique_id) + ": " + str(remaining_tasks_time))
+        #print("Remaining tasks for agent " + str(self.unique_id) + ": " + str(len(self.tasks)))
+        #print("Stress for agent " + str(self.unique_id) + ": " + str(self.stress))
         # self.stress += randint(0,10)
         # self.model.log.collectStress(str(self.model.time.clock.hour) + ":" + str(self.model.time.clock.minute), self.unique_id, self.stress)

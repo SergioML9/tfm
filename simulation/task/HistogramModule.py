@@ -17,5 +17,7 @@ class HistogramModule(VisualizationElement):
 
     def render(self, model):
         wealth_vals = [agent.stress for agent in model.users]
+        for agent in model.users:
+            print(str(agent.stress))
         hist = np.histogram(wealth_vals, bins=self.bins)[0]
         return [int(x) for x in hist]

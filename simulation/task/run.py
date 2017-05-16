@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 from mesa.visualization.ModularVisualization import ModularServer
 from HistogramModule import HistogramModule
 
-histogram = HistogramModule(list(range(10)), 200, 1000)
+histogram = HistogramModule(list(range(0, 11)), 200, 1000)
 server = ModularServer(StressModel,
                        [histogram],
                        "Stress Model",
-                       1)
+                       100)
 server.launch()
 
 #model = StressModel(10)
