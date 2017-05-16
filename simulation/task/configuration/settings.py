@@ -7,3 +7,5 @@ workersTiming = {'arrivalTime' : datetime.time(9, 00), 'leavingTime' : datetime.
 
 task_times = [30, 60, 120, 240] # minutes dedicated to the task
 task_probs = [0.533, 0.267, 0.133, 0.067] # probs of task with that time
+
+productivity_probs = [0.15, 0.075, 0.01] # probs of be more efficient at work (duplicate capacity)
