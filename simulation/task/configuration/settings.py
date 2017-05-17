@@ -11,3 +11,8 @@ task_times = [30, 60, 120, 180] # minutes dedicated to the task
 task_probs = [0.4, 0.333, 0.200, 0.067] # probs of task with that time
 
 productivity_probs = [0.15, 0.075, 0.01] # probs of be more efficient at work (duplicate capacity)
+
+new_email_prob = 0.1 # prob of receiving a new email
+email_with_task_prob = 0.02 # prob of an email to contain a task
+
+automate_task_prob = 0.15 # prob of automate a task

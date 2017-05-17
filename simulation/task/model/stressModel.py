@@ -6,15 +6,19 @@ import random
 from mesa.datacollection import DataCollector
 from agents.timeAgent import Time
 from log.log import CustomLog
+from agents.automationPlatformAgent import AutomationPlatformAgent
 
 class StressModel(Model):
     """A model with some number of agents."""
     def __init__(self, N):
         self.num_agents = N
         self.current_step = 0
-        
+
         self.schedule = RandomActivation(self)
         self.users = []
+
+        # Create automation platform
+        self.automationPlatform = AutomationPlatformAgent();
 
         # Create log
         self.log = CustomLog()

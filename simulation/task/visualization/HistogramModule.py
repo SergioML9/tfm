@@ -3,7 +3,7 @@ import numpy as np
 
 class HistogramModule(VisualizationElement):
     package_includes = ["Chart.min.js"]
-    local_includes = ["HistogramModule.js"]
+    local_includes = ["visualization/HistogramModule.js"]
 
     def __init__(self, bins, canvas_height, canvas_width):
         self.canvas_height = canvas_height
