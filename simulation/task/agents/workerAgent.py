@@ -28,7 +28,7 @@ class WorkerAgent(Agent):
         # check if the day has changed, if true, add new daily tasks
         if self.day != self.model.time.days and self.model.time.clock.hour == 9:
             for i in range(random.randint(7, 10)):
-                if len(self.tasks) < 15:
+                if len(self.tasks) < 14:
                     self.tasks.extend([Task()])
             self.day = self.model.time.days
             return
@@ -45,7 +45,7 @@ class WorkerAgent(Agent):
             remaining_work_time_minutes = remaining_work_time.seconds / 60
 
             #print("Remaining work time for agent " + str(self.unique_id) + ": " + str(remaining_work_time_minutes))
-
+ 
             # calculate stress
             if remaining_work_time_minutes != 0:
                 self.stress = min(10, math.ceil(self.base_stress + (1 - self.stress_tolerance)*math.pow(1.5, math.sqrt((len(self.tasks)+remaining_tasks_time/remaining_work_time_minutes)*configuration.settings.max_stress/configuration.settings.real_max_stress))))
