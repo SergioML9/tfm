@@ -1,11 +1,14 @@
 from model.stressModel import *
 import matplotlib.pyplot as plt
 from mesa.visualization.ModularVisualization import ModularServer
-from HistogramModule import HistogramModule
+from visualization.HistogramModule import HistogramModule
+from visualization.AverageStress import AverageStress
 
-histogram = HistogramModule(list(range(0, 11)), 200, 1000)
+histogram = HistogramModule(list(range(0, 12)), 200, 1000)
+average_stress = AverageStress(200, 1000)
+
 server = ModularServer(StressModel,
-                       [histogram],
+                       [histogram, average_stress],
                        "Stress Model",
                        100)
 server.launch()

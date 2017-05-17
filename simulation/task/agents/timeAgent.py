@@ -14,6 +14,7 @@ class Time(Agent):
         self.hours = self.clock.hour
         self.minutes = self.clock.minute
         self.seconds = self.clock.second-self.timeByStep
+        self.new_day = True
 
     def step(self):
         self.seconds = self.seconds + self.timeByStep
@@ -28,6 +29,7 @@ class Time(Agent):
                 if self.hours > 23:
                     self.days = self.days + math.floor(self.hours/24)
                     self.hours = 0
+                    self.new_day = True
                 #    self.hours = self.hours + self.hours % 24
 
         #self.clock = (self.hour*100 + self.minute) / 100

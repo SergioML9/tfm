@@ -11,6 +11,8 @@ class StressModel(Model):
     """A model with some number of agents."""
     def __init__(self, N):
         self.num_agents = N
+        self.current_step = 0
+        
         self.schedule = RandomActivation(self)
         self.users = []
 
@@ -33,4 +35,5 @@ class StressModel(Model):
 
     def step(self):
         '''Advance the model by one step.'''
+        self.current_step += 1
         self.schedule.step()
