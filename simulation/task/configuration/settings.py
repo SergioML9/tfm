@@ -1,14 +1,18 @@
 import datetime
 
-time_by_step = 1800 # seg/step
+time_by_step = 60 # seg/step
 working_day = 8 # hours
 real_max_stress =  12
 max_stress = 6
 
 workersTiming = {'arrivalTime' : datetime.time(9, 00), 'leavingTime' : datetime.time(17, 00)}
 
+tasks_weight = {'normal_project' : 0, 'meeting' : 1, 'special_project' : 2} # weight of each task
+tasks_times = {'normal_project' : 30, 'meeting' : 60, 'special_project' : 120} # minutes dedicated to each task
+tasks_probs = {'normal_project' : 0.5, 'meeting' : 0.3, 'special_project' : 0.2} # probs each task
+
 task_times = [30, 60, 120, 180] # minutes dedicated to the task
-task_probs = [0.4, 0.333, 0.200, 0.067] # probs of task with that time
+task_probs = [0.4, 0.333, 0.200, 0.067]
 
 productivity_probs = [0.15, 0.075, 0.01] # probs of be more efficient at work (duplicate capacity)
 

@@ -34,7 +34,6 @@ class WorkerAgent(Agent):
                 if len(self.tasks) < 14:
                     self.tasks.extend([Task()])
             self.day = self.model.time.days
-
             return
 
         # receive (or not) a new email
@@ -42,66 +41,67 @@ class WorkerAgent(Agent):
             self.emails.extend([Email()])
 
         # calculate remaining work time
-        if is_work_time:
-
+        #if is_work_time:
+            #print("Work time")
             # automate (or not) a task
-            if self.model.automationPlatform.automate_tasks:
-                if random.random() < configuration.settings.automate_task_prob:
-                    if len(self.tasks) > 0:
-                        self.tasks.pop(0)
+            #if self.model.automationPlatform.automate_tasks:
+            #    if random.random() < configuration.settings.automate_task_prob:
+            #        if len(self.tasks) > 0:
+            #            self.tasks.pop(0)
 
             # calculate remaining task time in minutes
-            remaining_tasks_time = 0
+            #remaining_tasks_time = 0
 
-            for task in self.tasks:
-                remaining_tasks_time += task.time
+            #for task in self.tasks:
+            #    remaining_tasks_time += task.time
 
-            remaining_work_time = datetime.combine(date.min, configuration.settings.workersTiming['leavingTime']) - datetime.combine(date.min, self.model.time.clock)
-            remaining_work_time_minutes = remaining_work_time.seconds / 60
+            #remaining_work_time = datetime.combine(date.min, configuration.settings.workersTiming['leavingTime']) - datetime.combine(date.min, self.model.time.clock)
+            #remaining_work_time_minutes = remaining_work_time.seconds / 60
 
             #print("Remaining work time for agent " + str(self.unique_id) + ": " + str(remaining_work_time_minutes))
 
             # calculate stress
-            if remaining_work_time_minutes != 0:
-                self.stress = min(10, math.ceil(self.base_stress + (1 - self.stress_tolerance)*math.pow(1.5, math.sqrt((len(self.tasks)+remaining_tasks_time/remaining_work_time_minutes)*configuration.settings.max_stress/configuration.settings.real_max_stress))))
+            #if remaining_work_time_minutes != 0:
+            #    self.stress = min(10, math.ceil(self.base_stress + (1 - self.stress_tolerance)*math.pow(1.5, math.sqrt((len(self.tasks)+remaining_tasks_time/remaining_work_time_minutes)*configuration.settings.max_stress/configuration.settings.real_max_stress))))
                 #print("Stress for agent " + str(self.unique_id) + ": " + str(self.stress))
-        else:
-            if len(self.tasks) > 0:
-                self.base_stress = len(self.tasks)*self.responsibility
-            else:
-                self.base_stress = 0
+        #else:
+        #    print("Not working")
+            #if len(self.tasks) > 0:
+            #    self.base_stress = len(self.tasks)*self.responsibility
+            #else:
+            #    self.base_stress = 0
 
         # check if there are remaining tasks, and select current task
-        if len(self.tasks) > 0:
-            self.currentTask = self.tasks[0]
-        else:
+        #if len(self.tasks) > 0:
+        #    self.currentTask = self.tasks[0]
+        #else:
             # if there aren't tasks, spend time reading email
-            for email in self.emails:
-                if email.contains_task:
-                    self.tasks.extend([Task()])
-                self.emails.remove(email)
-            return
+        #    for email in self.emails:
+        #        if email.contains_task:
+        #            self.tasks.extend([Task()])
+        #        self.emails.remove(email)
+        #    return
 
         # check if the worker is in work time, if true, work in a task
-        if is_work_time:
+        #if is_work_time:
 
             # if there are a lot of emails, spend time reading them and not doing tasks
-            if len(self.emails) > 15:
-                for email in self.emails:
-                    if email.contains_task:
-                        self.tasks.extend([Task()])
-                    self.emails.remove(email)
-                    return
+            #if len(self.emails) > 15:
+            #    for email in self.emails:
+            #        if email.contains_task:
+            #            self.tasks.extend([Task()])
+            #        self.emails.remove(email)
+            #        return
 
-            self.currentTask.time -= self.minutesByStep
+            #self.currentTask.time -= self.minutesByStep
 
             # duplicate productivity
-            if self.currentTask.time > self.minutesByStep and random.random() < self.productivity:
-                self.currentTask.time -= self.minutesByStep
+            #if self.currentTask.time > self.minutesByStep and random.random() < self.productivity:
+            #    self.currentTask.time -= self.minutesByStep
 
             # if task has been finished, remove it
-            if self.currentTask.time == 0:
-                self.tasks.pop(0)
+            #if self.currentTask.time == 0:
+            #    self.tasks.pop(0)
 
         #print("Remaining task time for agent " + str(self.unique_id) + ": " + str(remaining_tasks_time))
         #print("Remaining tasks for agent " + str(self.unique_id) + ": " + str(len(self.tasks)))
