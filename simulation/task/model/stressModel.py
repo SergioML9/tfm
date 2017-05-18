@@ -7,6 +7,9 @@ from mesa.datacollection import DataCollector
 from agents.timeAgent import Time
 from log.log import CustomLog
 from agents.automationPlatformAgent import AutomationPlatformAgent
+import configuration.settings
+import numpy
+import math
 
 class StressModel(Model):
     """A model with some number of agents."""
@@ -28,9 +31,13 @@ class StressModel(Model):
         self.time = Time()
         self.schedule.add(self.time)
 
+        # Create distribution of emails read
+        mu, sigma = configuration.settings.emails_read_distribution_params
+        email_read_distribution = numpy.random.normal(mu, sigma, N)
+
         # Create agents
         for i in range(self.num_agents):
-            a = WorkerAgent(i, self)
+            a = WorkerAgent(i, self, math.floor(abs(email_read_distribution[i])))
             self.schedule.add(a)
             self.users.append(a)
 

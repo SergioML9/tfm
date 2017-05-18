@@ -10,7 +10,7 @@ from datetime import datetime, date
 class WorkerAgent(Agent):
 
     """ An agent with fixed initial wealth."""
-    def __init__(self, worker_id, model):
+    def __init__(self, worker_id, model, emails_read):
         super().__init__(worker_id, model)
         self.base_stress = random.uniform(0, 1)
         self.stress_tolerance = random.uniform(0, 0.5)
@@ -21,6 +21,7 @@ class WorkerAgent(Agent):
         self.productivity = random.choice(configuration.settings.productivity_probs)
         self.minutesByStep = configuration.settings.time_by_step/60
         self.stress = 0
+        #print("Agent " + str(worker_id) + " reads " + str(emails_read) + " by day.")
 
     def step(self):
 
