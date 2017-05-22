@@ -2,24 +2,20 @@ import datetime
 
 time_by_step = 60 # seg/step
 working_day = 8 # hours
-real_max_stress =  12
-max_stress = 6
 
-workersTiming = {'arrivalTime' : datetime.time(9, 00), 'leavingTime' : datetime.time(17, 00)}
+workersTiming = {'arrivalTime' : datetime.time(9, 00), 'leavingTime' : datetime.time(17, 00), 'overtimeLimit' : datetime.time(19, 00) , 'sleepStart' : datetime.time(00, 00), 'sleepEnd' : datetime.time(7, 00)}
 
-tasks_weight = {'normal_project' : 0, 'meeting' : 1, 'special_project' : 2} # weight of each task
-tasks_times = {'normal_project' : 30, 'meeting' : 60, 'special_project' : 120} # minutes dedicated to each task
-tasks_probs = {'normal_project' : 0.5, 'meeting' : 0.3, 'special_project' : 0.2} # probs each task
-
-task_times = [30, 60, 120, 180] # minutes dedicated to the task
-task_probs = [0.4, 0.333, 0.200, 0.067]
-
-productivity_probs = [0.15, 0.075, 0.01] # probs of be more efficient at work (duplicate capacity)
-
-new_email_prob = 0.05 # prob of receiving a new email
-email_with_task_prob = 0.01 # prob of an email to contain a task
-
-automate_task_prob = 0.15 # prob of automate a task
-
-unlimited_email = 12.54, 8.02
+# distributions params
+unlimited_email = 12.54, 8.02 # 4.70 4.1
 emails_read_distribution_params = unlimited_email
+
+email_time_reception_distribution_params = 13, 1.5 # TODO: search for real values
+email_read_time_distribution_params = 15, 3 # TODO: search for real values
+
+tasks_arriving = 20, 6
+tasks_arriving_distribution_params = tasks_arriving
+tasks_estimated_length = [25, 25] # TODO: search for real values
+tasks_probs = [0.67, 0.33] # TODO: search for real values
+
+fatigue_tolerance = 1, 0.1
+fatigue_tolerance_distribution_paramas = fatigue_tolerance

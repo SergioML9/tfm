@@ -1,4 +1,4 @@
-from mesa import Agent, Model
+from mesa import Agent
 import configuration.settings
 import math
 import datetime
@@ -14,9 +14,9 @@ class Time(Agent):
         self.hours = self.clock.hour
         self.minutes = self.clock.minute
         self.seconds = self.clock.second-self.timeByStep
-        self.new_day = True
 
     def step(self):
+
         self.seconds = self.seconds + self.timeByStep
         if self.seconds > 59:
             self.minutes = self.minutes + math.floor(self.seconds/60)
@@ -29,9 +29,6 @@ class Time(Agent):
                 if self.hours > 23:
                     self.days = self.days + math.floor(self.hours/24)
                     self.hours = 0
-                    self.new_day = True
-                #    self.hours = self.hours + self.hours % 24
 
-        #self.clock = (self.hour*100 + self.minute) / 100
         self.clock = datetime.time(self.hours,self.minutes)
         print('Day: ', (self.days + 1), ' - Hour: ', self.clock)

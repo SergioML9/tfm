@@ -4,13 +4,15 @@ from mesa.visualization.ModularVisualization import ModularServer
 from visualization.HistogramModule import HistogramModule
 from visualization.AverageStress import AverageStress
 from visualization.StressCompare import StressCompare
+from visualization.AccumulatedTasks import AccumulatedTasks
 
-histogram = HistogramModule(list(range(0, 12)), 200, 1000)
-average_stress = AverageStress(200, 1000)
+histogram = HistogramModule([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1], 200, 1000)
+#average_stress = AverageStress(200, 1000)
 stress_compare = StressCompare(200, 1000)
+accumulated_tasks = AccumulatedTasks(200, 1000)
 
 server = ModularServer(StressModel,
-                       [histogram, average_stress, stress_compare],
+                       [histogram, stress_compare, accumulated_tasks],
                        "Stress Model",
                        100)
 server.launch()

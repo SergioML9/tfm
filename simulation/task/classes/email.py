@@ -1,10 +1,25 @@
-import random
+from mesa import Agent
 import configuration.settings
+import numpy
+import math
+import random
 
-class Email():
+class Email(Agent):
 
-    def __init__(self):
+    def __init__(self, model, worker):
 
-        self.contains_task = False
-        if random.random() < configuration.settings.email_with_task_prob:
-            self.contains_task = True
+        self.model = model
+        self.worker = worker
+        mu, sigma = configuration.settings.email_time_reception_distribution_params
+        self.reception_time = math.floor(abs(numpy.random.normal(mu, sigma, 100)[random.randint(0, 99)]))
+        mu, sigma = configuration.settings.email_read_time_distribution_params
+        self.read_estimated_time = math.floor(abs(numpy.random.normal(mu, sigma, 10)[random.randint(0,9)]))
+
+        if self.reception_time < 10 or self.reception_time > 17:
+            self.reception_time = 10
+
+        self.model.schedule.add(self)
+
+    def step(self):
+        if self.model.time.hours == self.reception_time:
+            self.worker.receive_email(self)

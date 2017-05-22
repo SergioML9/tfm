@@ -18,7 +18,7 @@ class StressModel(Model):
         self.current_step = 0
 
         self.schedule = RandomActivation(self)
-        self.users = []
+        self.workers = []
 
         # Create automation platform
         self.automationPlatform = AutomationPlatformAgent();
@@ -29,22 +29,50 @@ class StressModel(Model):
 
         # Create control of time
         self.time = Time()
+        self.new_day = False
+        self.new_hour = False
         self.schedule.add(self.time)
 
         # Create distribution of emails read
         mu, sigma = configuration.settings.emails_read_distribution_params
-        email_read_distribution = numpy.random.normal(mu, sigma, N)
+        self.email_read_distribution = numpy.random.normal(mu, sigma, N*10)
+
+        # Create distribution of fatigue tolerance
+        mu, sigma = configuration.settings.fatigue_tolerance_distribution_paramas
+        fatigue_tolerance_distribution = numpy.random.normal(mu, sigma, N)
+
+        # Create distribution of tasks distribution
+        mu, sigma = configuration.settings.tasks_arriving_distribution_params
+        self.tasks_arriving_distribution = numpy.random.normal(mu, sigma, N*10)
 
         # Create agents
         for i in range(self.num_agents):
-            a = WorkerAgent(i, self, math.floor(abs(email_read_distribution[i])))
-            self.schedule.add(a)
-            self.users.append(a)
+            a = WorkerAgent(i, self)
 
-        #self.datacollector = DataCollector(
-        #    agent_reporters={"Stress": lambda a: a.stress})
+            # Assign params
+            a.fatigue_tolerance = math.floor(abs(fatigue_tolerance_distribution[i]))
+            self.schedule.add(a)
+            self.workers.append(a)
+
+        # Create workplace management
+        self.spike_day = False
 
     def step(self):
         '''Advance the model by one step.'''
+
+        self.spike_day = False
+        # Update new day
+        if self.time.hours == 9 and self.time.minutes == 0:
+            self.new_day = True
+            if random.random() < 0.05 and self.time.days != 0:
+                self.spike_day = True
+        else:
+            self.new_day = False
+
+        if self.time.minutes == 0:
+            self.new_hour = True
+        else:
+            self.new_hour = False
+
         self.current_step += 1
         self.schedule.step()

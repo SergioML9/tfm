@@ -1,4 +1,4 @@
-var StressCompare = function(canvas_width, canvas_height) {
+var AccumulatedTasks = function(canvas_width, canvas_height) {
     // Create the tag:
     var canvas_tag = "<canvas width='" + canvas_width + "' height='" + canvas_height + "' ";
     canvas_tag += "style='border:1px dotted'></canvas>";
@@ -18,33 +18,13 @@ var StressCompare = function(canvas_width, canvas_height) {
       labels: [],
       datasets: [
     		{
-    			label: "Event Stress",
+    			label: "My First dataset",
     			fillColor: "rgba(220,220,220,0.2)",
     			strokeColor: "rgba(220,220,220,1)",
     			pointColor: "rgba(220,220,220,1)",
     			pointStrokeColor: "#fff",
     			pointHighlightFill: "#fff",
     			pointHighlightStroke: "rgba(220,220,220,1)",
-    			data: []
-    		},
-        {
-    			label: "Effective Fatigue",
-    			fillColor: "rgba(80,220,220,0.2)",
-    			strokeColor: "rgba(80,220,220,1)",
-    			pointColor: "rgba(80,220,220,1)",
-    			pointStrokeColor: "#fff",
-    			pointHighlightFill: "#fff",
-    			pointHighlightStroke: "rgba(80,220,220,1)",
-    			data: []
-    		},
-        {
-    			label: "Time Pressure",
-    			fillColor: "rgba(120,220,220,0.2)",
-    			strokeColor: "rgba(120,220,220,1)",
-    			pointColor: "rgba(120,220,220,1)",
-    			pointStrokeColor: "#fff",
-    			pointHighlightFill: "#fff",
-    			pointHighlightStroke: "rgba(120,220,220,1)",
     			data: []
     		}
     	]
@@ -62,7 +42,7 @@ var StressCompare = function(canvas_width, canvas_height) {
         //for (var i in data)
         //    chart.datasets[0].bars[i].value = data[i];
         if(data == -1) return;
-        lineChart.addData([data[0][0], data[0][1], data[0][2]], data[1]);
+        lineChart.addData([data[0]], data[1]);
         //lineChart.data.labels = "Hola";
         //lineChart.config.data.labels.push("A label2");
         //lineChart.config.data.datasets[0].data.push(data);

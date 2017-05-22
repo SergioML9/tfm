@@ -17,8 +17,8 @@ class AverageStress(VisualizationElement):
         #wealth_vals = [agent.stress for agent in model.users]
         #hist = np.histogram(wealth_vals, bins=self.bins)[0]
         if model.time.new_day:
-            total_stress = sum(user.stress for user in model.users)
+            total_stress = sum(user.stress for user in model.workers)
             #model.time.new_day = False
-            return [total_stress/len(model.users), "Day " + str(model.time.days)]
+            return [total_stress/len(model.workers), "Day " + str(model.time.days)]
         else:
             return -1
