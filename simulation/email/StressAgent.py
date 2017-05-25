@@ -3,6 +3,10 @@ import random
 from random import randint
 import math
 
+
+def compute_stress(model):
+    return self.stress
+
 class StressAgent(Agent):
 
     """ An agent with fixed initial wealth."""
@@ -18,7 +22,7 @@ class StressAgent(Agent):
 
     def step(self):
         emails_received = randint(0, 5)
-        self.alpha = 2            
+        self.alpha = 2
 
         task_queue = 0
 
@@ -46,4 +50,3 @@ class StressAgent(Agent):
 
         self.queue += (emails_queue + task_queue)
         self.stress = min(max(math.floor(self.queue * 4 / 96), 0), 4)
-        

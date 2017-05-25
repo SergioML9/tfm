@@ -9,8 +9,8 @@ workersTiming = {'arrivalTime' : datetime.time(9, 00), 'leavingTime' : datetime.
 unlimited_email = 12.54, 8.02 # 4.70 4.1
 emails_read_distribution_params = unlimited_email
 
-email_time_reception_distribution_params = 13, 1.5 # TODO: search for real values
-email_read_time_distribution_params = 15, 3 # TODO: search for real values
+email_time_reception_distribution_params = 92, 1.5 # http://www.radicati.com/wp/wp-content/uploads/2015/02/Email-Statistics-Report-2015-2019-Executive-Summary.pdf
+email_read_time_distribution_params = 23, 3 # TODO: search for real values
 
 tasks_arriving = 20, 6
 tasks_arriving_distribution_params = tasks_arriving

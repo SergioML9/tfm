@@ -62,7 +62,6 @@ class WorkerAgent(Agent):
         is_work_time = configuration.settings.workersTiming['arrivalTime'] <= self.model.time.clock < configuration.settings.workersTiming['leavingTime']
         is_overtime = configuration.settings.workersTiming['leavingTime'] <= self.model.time.clock < configuration.settings.workersTiming['overtimeLimit']
         is_sleep_time = configuration.settings.workersTiming['sleepStart'] <= self.model.time.clock < configuration.settings.workersTiming['sleepEnd']
-        self.effective_fatigue = min(self.effective_fatigue, 1)
 
         if self.model.new_day:
 
@@ -148,6 +147,9 @@ class WorkerAgent(Agent):
                 self.overtime_daily_time += 1
             else:
                 self.rest_daily_time += 1
+
+        self.effective_fatigue = min(self.effective_fatigue, 1)
+
             #print("Number of tasks for agent " + str(self.unique_id) + ": " + str(self.daily_tasks_total))
 
         # check if should add a new task

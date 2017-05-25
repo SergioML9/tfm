@@ -21,7 +21,10 @@ agent = model.datacollector.get_agent_vars_dataframe()
 #one_automated_emails.AutomatedEmails.plot()
 
 #plt.subplot(212)
-end_stress = agent.xs(23, level="Step")["Stress"]
-end_stress.hist(bins=range(agent.Stress.max()+1))
+#end_stress = agent.xs(23, level="Step")["Stress"]
+#end_stress.hist(bins=range(agent.Stress.max()+1))
+
+end_stressa = agent.xs(23, level="Step")["Queue"]
+end_stressa.hist(bins=range(agent.Queue.max()+1))
 
 plt.show()
