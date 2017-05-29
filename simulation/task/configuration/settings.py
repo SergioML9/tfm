@@ -6,7 +6,7 @@ working_day = 8 # hours
 workersTiming = {'arrivalTime' : datetime.time(9, 00), 'leavingTime' : datetime.time(17, 00), 'overtimeLimit' : datetime.time(19, 00) , 'sleepStart' : datetime.time(00, 00), 'sleepEnd' : datetime.time(7, 00)}
 
 # distributions params
-unlimited_email = 12.54, 8.02 # 4.70 4.1
+unlimited_email = 4.70, 4.1 #12.54, 8.02 or 4.70 4.1
 emails_read_distribution_params = unlimited_email
 
 email_time_reception_distribution_params = 92, 1.5 # http://www.radicati.com/wp/wp-content/uploads/2015/02/Email-Statistics-Report-2015-2019-Executive-Summary.pdf

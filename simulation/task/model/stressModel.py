@@ -16,6 +16,7 @@ class StressModel(Model):
     def __init__(self, N):
         self.num_agents = N
         self.current_step = 0
+        self.running = True
 
         self.schedule = RandomActivation(self)
         self.workers = []
@@ -28,7 +29,7 @@ class StressModel(Model):
         self.log.initCollectStress()
 
         # Create control of time
-        self.time = Time()
+        self.time = Time(self)
         self.new_day = False
         self.new_hour = False
         self.schedule.add(self.time)

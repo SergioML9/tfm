@@ -7,7 +7,7 @@ import random
 class Email(Agent):
 
     def __init__(self, model, worker):
-
+        super().__init__(worker.unique_id*100, model)
         self.model = model
         self.worker = worker
         mu, sigma = configuration.settings.email_time_reception_distribution_params

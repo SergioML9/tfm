@@ -95,6 +95,7 @@ class WorkerAgent(Agent):
 
             ## calculate time pressure
             self.time_pressure = self.daily_tasks_time/(self.daily_tasks_time + (configuration.settings.workersTiming['leavingTime'].hour-self.model.time.hours)*60)
+            self.time_pressure = min(1, self.time_pressure)
 
             ## calculate event stress
             self.event_stress = self.daily_tasks_number/2/20
@@ -116,7 +117,7 @@ class WorkerAgent(Agent):
             elif self.stress > 0.2 and self.stress <= 0.4:
                 self.productivity = 1
             elif self.stress > 0.4 and self.stress <= 0.6:
-                self.productivity = 1.5
+                self.productivity = 1.25
             elif self.stress > 0.6 and self.stress <= 0.8:
                 self.productivity = 1
             else:
@@ -149,7 +150,7 @@ class WorkerAgent(Agent):
                 self.rest_daily_time += 1
 
         self.effective_fatigue = min(self.effective_fatigue, 1)
-
+        self.stress = min(1, self.stress)
             #print("Number of tasks for agent " + str(self.unique_id) + ": " + str(self.daily_tasks_total))
 
         # check if should add a new task

@@ -5,7 +5,8 @@ import datetime
 
 class Time(Agent):
 
-    def __init__(self):
+    def __init__(self, model):
+        super().__init__(583929, model)
 
         #print(configuration.settings.workersTiming['arriveTime'])
         self.timeByStep = configuration.settings.time_by_step
@@ -31,4 +32,4 @@ class Time(Agent):
                     self.hours = 0
 
         self.clock = datetime.time(self.hours,self.minutes)
-        print('Day: ', (self.days + 1), ' - Hour: ', self.clock)
+        #print('Day: ', (self.days + 1), ' - Hour: ', self.clock)
